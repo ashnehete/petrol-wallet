@@ -129,7 +129,12 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "addTransaction");
         FragmentManager fragmentManager = getSupportFragmentManager();
         NewTransactionDialogFragment dialogFragment = new NewTransactionDialogFragment();
-
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                        android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .add(android.R.id.content, dialogFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private class GetTransactionsTask extends AsyncTask<Void, Integer, List<Transaction>> {
