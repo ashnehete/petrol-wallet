@@ -1,7 +1,10 @@
 package in.ashnehete.petrolwallet;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,15 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     TransactionDao transactionDao;
     TransactionAdapter adapter;
-
-    // Different thread to fetch data from database
-    Thread getTransactionsThread = new Thread() {
-        @Override
-        public void run() {
-            Log.d(TAG, "getTransactionThread");
-            adapter.updateTransactions(transactionDao.getAll());
-        }
-    };
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +76,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.i(TAG, "onResume");
         super.onResume();
-        getTransactionsThread.start();
+        // Fetch data from database on another thread
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "getTransactionThread");
+//
+//                // Notify adapter change on the main thread
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                });
+//            }
+//        }.start();
+        new GetTransactionsTask().execute();
     }
 
     private void testDb() {
@@ -117,5 +127,21 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.fab)
     public void addTransaction(View view) {
         Log.i(TAG, "addTransaction");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        NewTransactionDialogFragment dialogFragment = new NewTransactionDialogFragment();
+
+    }
+
+    private class GetTransactionsTask extends AsyncTask<Void, Integer, List<Transaction>> {
+
+        @Override
+        protected List<Transaction> doInBackground(Void... voids) {
+            return transactionDao.getAll();
+        }
+
+        @Override
+        protected void onPostExecute(List<Transaction> transactions) {
+            adapter.updateTransactions(transactions);
+        }
     }
 }
