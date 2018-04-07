@@ -1,4 +1,4 @@
-package in.ashnehete.petrolwallet;
+package in.ashnehete.petrolwallet.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,6 +20,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.ashnehete.petrolwallet.R;
 
 public class NewTransactionDialogFragment extends DialogFragment {
 

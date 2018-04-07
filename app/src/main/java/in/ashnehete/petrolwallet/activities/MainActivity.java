@@ -1,6 +1,7 @@
-package in.ashnehete.petrolwallet;
+package in.ashnehete.petrolwallet.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,9 +25,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.ashnehete.petrolwallet.AppDatabase;
+import in.ashnehete.petrolwallet.R;
 import in.ashnehete.petrolwallet.adapters.TransactionAdapter;
 import in.ashnehete.petrolwallet.dao.TransactionDao;
 import in.ashnehete.petrolwallet.entities.Transaction;
+import in.ashnehete.petrolwallet.fragments.NewTransactionDialogFragment;
 import in.ashnehete.petrolwallet.util.RecyclerItemClickListener;
 
 public class MainActivity extends AppCompatActivity implements
@@ -137,7 +141,9 @@ public class MainActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+            startActivity(intent);
             return true;
         }
 

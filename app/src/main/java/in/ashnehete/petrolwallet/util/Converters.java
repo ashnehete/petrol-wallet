@@ -1,4 +1,4 @@
-package in.ashnehete.petrolwallet;
+package in.ashnehete.petrolwallet.util;
 
 import android.arch.persistence.room.TypeConverter;
 
