@@ -11,4 +11,8 @@
     <string name="delete_alert_message">Are you sure you want to delete?</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="help_text">
+        1. Tap the add button at the bottom left of the screen to add new transaction.\n
+        2. Long click on any transaction to delete it.
+    </string>
 </resources>
