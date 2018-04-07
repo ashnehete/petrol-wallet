@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,10 +20,10 @@ import in.ashnehete.petrolwallet.entities.Transaction;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
-    public List<Transaction> transactions;
+    private List<Transaction> transactions;
 
-    public TransactionAdapter(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public TransactionAdapter() {
+        this.transactions = new ArrayList<>();
     }
 
     @Override
@@ -35,11 +36,12 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvDate.setText(transactions.get(position).getDateString());
-        holder.tvAmount.setText(String.valueOf(transactions.get(position).getAmount()));
-        holder.tvRate.setText(String.valueOf(transactions.get(position).getRate()));
+        holder.tvAmount.setText(transactions.get(position).getAmountString());
+        holder.tvRate.setText(transactions.get(position).getRateString());
         holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+
                 return false;
             }
         });
@@ -50,9 +52,13 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         return transactions.size();
     }
 
-    public void updateTransactions(List<Transaction> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
         notifyDataSetChanged();
+    }
+
+    public Transaction getTransactions(int i) {
+        return this.transactions.get(i);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

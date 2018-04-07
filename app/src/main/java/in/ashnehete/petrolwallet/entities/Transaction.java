@@ -61,6 +61,14 @@ public class Transaction {
         return new SimpleDateFormat("dd/MM/yy", Locale.US).format(date);
     }
 
+    public String getAmountString() {
+        return "₹".concat(String.valueOf(getAmount()));
+    }
+
+    public String getRateString() {
+        return "₹".concat(String.format(Locale.US, "%.2f", getRate()));
+    }
+
     @Override
     public String toString() {
         return "Date: " + date.toString() + "\tAmount: " + amount + "\tRate: " + rate;
